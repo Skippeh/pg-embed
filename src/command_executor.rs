@@ -86,7 +86,7 @@ where
     Self: Send,
 {
     /// Process command
-    command: tokio::process::Command,
+    _command: tokio::process::Command,
     /// Process child
     process: Child,
     /// Process type
@@ -190,7 +190,6 @@ where
         // let _ = tokio::task::spawn(async { Self::log_output(receiver).await });
         res
     }
-
 }
 
 #[async_trait]
@@ -205,10 +204,10 @@ where
         A: IntoIterator<Item = B>,
         B: AsRef<OsStr>,
     {
-        let mut command = Self::generate_command(executable_path, args);
-        let process = Self::init(&mut command, &process_type)?;
+        let mut _command = Self::generate_command(executable_path, args);
+        let process = Self::init(&mut _command, &process_type)?;
         Ok(AsyncCommandExecutor {
-            command,
+            _command,
             process,
             process_type,
             _marker_s: Default::default(),
